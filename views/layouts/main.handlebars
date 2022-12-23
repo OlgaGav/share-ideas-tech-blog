@@ -5,32 +5,44 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Share Ideas Tech Blog</title>
-  <link rel="stylesheet" type="text/css" href="/css/jass.css">
+  {{!-- <link rel="stylesheet" type="text/css" href="/css/jass.css"> --}}
   <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            
 </head>
 
-<body>
-  <header>
-    <h1>Share Ideas Tech Blog</h1>
-  </header>
-  <nav>
-    <a href="/">Home</a>
-    <a href="/dashboard">Dashboard</a>
-    {{#if loggedIn}}
-    <button id="logout" class="btn-no-style">Logout</button>
-    {{else}}
-    <a href="/login">Login</a>
-    {{/if}}
-  </nav>
-  <main>
-    <aside>
-      <h2>Click Dashboard to create your article to share your knowledge and ideas.</h2>
-    </aside>
-    <div class="gallery">
-      {{{body}}}
-    </div>
-  </main>
-  {{#if loggedIn}}
+  <div>
+    <header>
+      <nav>
+        <div class="nav-wrapper cyan">
+          <a href="#" class="brand-logo"><span role="img" aria-label="book">   &#128218;   </span>Share Ideas - Tech Blog</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/">Home</a></li>
+            <li><a href="dashboard">Dashboard</a></li>
+            {{#if logged_in}}
+              <li><a href="logout">Logout</a></li>
+            {{else}}
+              <li><a href="login">Login</a></li>
+            {{/if}}
+          </ul>
+        </div>
+      </nav>
+      
+    </header>
+    <main class="container container-fluid mt-5">
+      <!-- Render the sub layout -->
+      {{{ body }}}
+    </main>
+    <footer>
+      
+    </footer>
+  </div>
+
+  <!-- Render script for logged in users only -->
+  {{#if logged_in}}
   <script src="/js/logout.js"></script>
   {{/if}}
 </body>
