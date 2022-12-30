@@ -4,13 +4,13 @@ const userData = [
   {
     id: 1,
     username: 'Ana Smith',
-    email: 'smith@test.com',
+    email: 'ana@test.com',
     password: 'password',
   },
   {
     id: 2,
     username: 'Bob Brown',
-    email: 'brown@test.com',
+    email: 'bob@test.com',
     password: 'password',
   },
   {

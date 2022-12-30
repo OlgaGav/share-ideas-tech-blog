@@ -2,35 +2,30 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Share Ideas Tech Blog</title>
-  {{!-- <link rel="stylesheet" type="text/css" href="/css/jass.css"> --}}
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-            
+  <link rel="stylesheet" href="/css/materialize.css">
+  {{!-- <link rel="stylesheet" href="/css/jass.css"> --}}
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
-  <div>
-    <header>
+<body>
+  <div class="flex-column justify-space-around">
+    <header class="display-flex justify-space-between align-center p-2">
+      <h1>
+        <span role="img" aria-label="money">&#128218;</span>
+        <a href="/">Share Ideas - Tech Blog</a>
+      </h1>
       <nav>
-        <div class="nav-wrapper cyan">
-          <a href="#" class="brand-logo"><span role="img" aria-label="book">   &#128218;   </span>Share Ideas - Tech Blog</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="/">Home</a></li>
-            <li><a href="dashboard">Dashboard</a></li>
-            {{#if logged_in}}
-              <li><a href="logout">Logout</a></li>
-            {{else}}
-              <li><a href="login">Login</a></li>
-            {{/if}}
-          </ul>
-        </div>
+        <!-- Conditionally render login or logout links -->
+        {{#if logged_in}}
+        <a href="/dashboard">dashboard</a> |
+        <button class="no-button" id="logout">logout</button>
+        {{else}}
+        <a href="/login">login</a>
+        {{/if}}
       </nav>
-      
     </header>
     <main class="container container-fluid mt-5">
       <!-- Render the sub layout -->

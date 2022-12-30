@@ -1,54 +1,43 @@
-const { Router } = require("express");
-const auth = require("./../../middelware/auth");
-const Blogpost = require("../../models/Blogpost");
+const router = require('express').Router();
+const { Blogpost } = require('../../models');
+const withAuth = require('../../utils/auth');
 
-const blogpostRouter = new Router();
-
-blogpostRouter.get("/", async (req, res) => {
-    try {
-        const blogpostsData = await Blogpost.findAll({
-            include: [{ model: User }],
-          });
-        res.status(200).json(blogpostsData)
-    } catch (error){
-        res.status(400).json(error);
-    }
-});
-
-blogpostRouter.post("/", auth, async (req, res) => {
-  const { title, post } = req.body;
-
-  const blogpost = await Blogpost.create({
-    title: title,
-    post: post,
-    userId: req.user.id,
-  });
-
-  res.json({
-    id: blogpost.id,
-  });
-});
-
-blogpostRouter.get("/blogpost/:id", async (req, res) => {
+router.post('/', withAuth, async (req, res) => {
+  let current = new Date();
+  let cDate = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
+  let cTime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
+  let dateTime = cDate + ' ' + cTime;
   try {
-    const blogpostData = await Blogpost.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ["email"],
-        },
-      ],
+    const newBlogpost = await Blogpost.create({
+      ...req.body,
+      user_id: req.session.user_id,
+      posted_date: dateTime
     });
 
-    const blogpost = blogpostData.get({ plain: true });
+    res.status(200).json(newBlogpost);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
-    res.render("blogpost", {
-      ...blogpost,
-      logged_in: req.session.logged_in,
+router.delete('/:id', withAuth, async (req, res) => {
+  try {
+    const blogpostData = await Blogpost.destroy({
+      where: {
+        id: req.params.id,
+        user_id: req.session.user_id,
+      },
     });
+
+    if (!blogpostData) {
+      res.status(404).json({ message: 'No blogpost found with this id!' });
+      return;
+    }
+
+    res.status(200).json(blogpostData);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-module.exports = blogpostRouter;
+module.exports = router;

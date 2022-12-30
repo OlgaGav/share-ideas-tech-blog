@@ -1,39 +1,24 @@
-const { Router } = require ("express");
-const auth = require('./../middelware/auth');
+const router = require('express').Router();
 const { Blogpost, User } = require('../models');
-const pathRouter = new Router();
+const withAuth = require('../utils/auth');
 
-pathRouter.get("/", async (req, res) => {
-  res.render('home');
-
-});
-
-pathRouter.get("/login", async (req, res) => {
-  res.render("login");
-});
-
-pathRouter.get("/signup", async (req, res) => {
-  res.render("signup");
-});
-
-
-pathRouter.get('/dashboard', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     // Get all blogposts and JOIN with user data
-    const blogpostsData = await Blogpost.findAll({
+    const blogpostData = await Blogpost.findAll({
       include: [
         {
           model: User,
-          attributes: ['email'],
+          attributes: ['name'],
         },
       ],
     });
 
     // Serialize data so the template can read it
-    const blogposts = blogpostsData.map((blogpost) => blogpost.get({ plain: true }));
-
+    const blogposts = blogpostData.map((blogpost) => blogpost.get({ plain: true }));
+console.log(blogposts);
     // Pass serialized data and session flag into template
-    res.render('dashboard', { 
+    res.render('homepage', { 
       blogposts, 
       logged_in: req.session.logged_in 
     });
@@ -42,24 +27,13 @@ pathRouter.get('/dashboard', auth, async (req, res) => {
   }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-pathRouter.get('/blogpost/:id', async (req, res) => {
+router.get('/blogpost/:id', async (req, res) => {
   try {
     const blogpostData = await Blogpost.findByPk(req.params.id, {
       include: [
         {
           model: User,
-          attributes: ['email'],
+          attributes: ['name'],
         },
       ],
     });
@@ -71,18 +45,38 @@ pathRouter.get('/blogpost/:id', async (req, res) => {
       logged_in: req.session.logged_in
     });
   } catch (err) {
-    console.log("========= failed in pathRouter.get('/blogpost/:id... ==============");
     res.status(500).json(err);
   }
 });
 
+// Use withAuth middleware to prevent access to route
+router.get('/dashboard', withAuth, async (req, res) => {
+  try {
+    // Find the logged in user based on the session ID
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Blogpost }],
+    });
 
-pathRouter.get('/login', (req, res) => {
+    const user = userData.get({ plain: true });
+
+    res.render('dashboard', {
+      ...user,
+      logged_in: true
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
     res.redirect('/dashboard');
     return;
   }
+
   res.render('login');
 });
-module.exports = pathRouter;
+
+module.exports = router;

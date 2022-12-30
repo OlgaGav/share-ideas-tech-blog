@@ -1,13 +1,8 @@
-const { Router } = require("express");
+const router = require('express').Router();
+const userRoutes = require('./user');
+const blogpostRoutes = require('./blogpost');
 
-const userRouter = require('./user');
-const blogpostRouter = require('./blogpost');
-const commentRouter = require('./comment');
+router.use('/users', userRoutes);
+router.use('/blogposts', blogpostRoutes);
 
-const apiRouter = new Router();
-
-apiRouter.use('/user', userRouter);
-apiRouter.use('/blogpost', blogpostRouter);
-apiRouter.use('/comment', commentRouter);
-
-module.exports = apiRouter;
+module.exports = router;

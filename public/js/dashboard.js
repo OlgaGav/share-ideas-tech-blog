@@ -1,13 +1,13 @@
 const newFormHandler = async (event) => {
   event.preventDefault();
 
-  const title = document.getElementById('blogpost-title').value.trim();
-  const content = document.getElementById('blogpost-content').value.trim();
+  const title = document.querySelector('#blogpost-title').value.trim();
+  const post = document.querySelector('#blogpost-desc').value.trim();
 
-  if (title && content) {
-    const response = await fetch(`/api/blogpost`, {
+  if (title && post) {
+    const response = await fetch(`/api/blogposts`, {
       method: 'POST',
-      body: JSON.stringify({ title, content }),
+      body: JSON.stringify({ title, post }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -16,9 +16,6 @@ const newFormHandler = async (event) => {
     if (response.ok) {
       document.location.replace('/dashboard');
     } else {
-      console.log('Failed to create blogpost');
-
-//TODO: delete alert      
       alert('Failed to create blogpost');
     }
   }
@@ -28,15 +25,13 @@ const delButtonHandler = async (event) => {
   if (event.target.hasAttribute('data-id')) {
     const id = event.target.getAttribute('data-id');
 
-    const response = await fetch(`/api/blogpost/${id}`, {
+    const response = await fetch(`/api/blogposts/${id}`, {
       method: 'DELETE',
     });
 
     if (response.ok) {
       document.location.replace('/dashboard');
     } else {
-      console.log('Failed to delete blogpost');
-//TODO: delete alert 
       alert('Failed to delete blogpost');
     }
   }
