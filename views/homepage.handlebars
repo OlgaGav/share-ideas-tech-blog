@@ -1,10 +1,10 @@
 <!-- Loop over each object in the projects array -->
 {{#each blogposts as |blogpost| }}
-<div class="row mb-4 blogpost">
-  <div class="col-md-5">
-    <h2>
+<div class="row s12 blogpost">
+  <div class="col s12">
+    <h4>
       <a href="/blogpost/{{blogpost.id}}">{{blogpost.title}}</a>
-    </h2>
+    </h4>
     <p>{{blogpost.post}}</p>
     <p>Created by {{user.name}} on {{format_date blogpost.posted_date}}</p>
   </div>

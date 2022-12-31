@@ -21,26 +21,12 @@ const newFormHandler = async (event) => {
   }
 };
 
-const delButtonHandler = async (event) => {
-  if (event.target.hasAttribute('data-id')) {
-    const id = event.target.getAttribute('data-id');
-
-    const response = await fetch(`/api/blogposts/${id}`, {
-      method: 'DELETE',
-    });
-
-    if (response.ok) {
-      document.location.replace('/dashboard');
-    } else {
-      alert('Failed to delete blogpost');
-    }
-  }
-};
+function showCreatePost() {
+  document.getElementById("new-post-form").style.display = "block";
+  document.getElementById("current-posts").style.display = "none";
+}
 
 document
   .querySelector('.new-blogpost-form')
   .addEventListener('submit', newFormHandler);
 
-document
-  .querySelector('.blogpost-list')
-  .addEventListener('click', delButtonHandler);

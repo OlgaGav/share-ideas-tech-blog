@@ -1,0 +1,27 @@
+<form class="form update-blogpost-form">
+      <div>
+        <p class="subheader" for="blogpost-title">Title:</p>
+        <textarea
+          class="form-input"
+          type="text"
+          id="blogpost-title"
+          name="blogpost-title"
+        >{{title}}</textarea>
+      </div>
+      <div>
+        <p class="subheader" for="blogpost-desc">Content:</p>
+        <textarea
+          class="form-input"
+          id="blogpost-desc"
+          name="blogpost-desc"
+          style="height: 300px"
+        >{{post}}</textarea>
+      </div>
+    </form>
+  <p>
+    <button class="btn btn-small" id="blogpost-update" data-id={{id}} onclick="updateButtonHandler({{id}})">Update</button>
+    <button class="btn btn-small" id="blogpost-delete" data-id={{id}} onclick="delButtonHandler({{id}})">Delete</button>
+  </p>
+{{!-- </div> --}}
+
+<script src="/js/blogpost.js"/>

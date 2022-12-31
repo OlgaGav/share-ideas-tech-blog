@@ -12,9 +12,10 @@ const loginFormHandler = async (event) => {
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
     });
-
     if (response.ok) {
-      // If successful, redirect the browser to the dashboard page
+      // If successful, redirect the browser to the home page
+      //awaiting loggedIn function saved in db. TODO: investigate other options
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       document.location.replace('/dashboard');
     } else {
       alert(response.statusText);
@@ -37,12 +38,23 @@ const signupFormHandler = async (event) => {
     });
 
     if (response.ok) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       document.location.replace('/dashboard');
     } else {
       alert(response.statusText);
     }
   }
 };
+
+function showSignupForm() {
+  document.getElementById("login-section").style.display = "none";
+  document.getElementById("signup-section").style.display = "block";
+}  
+
+function showLoginForm() {
+  document.getElementById("login-section").style.display = "block";
+  document.getElementById("signup-section").style.display = "none";
+}
 
 document
   .querySelector('.login-form')

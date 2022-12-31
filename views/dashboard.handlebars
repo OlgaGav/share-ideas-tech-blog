@@ -1,42 +1,53 @@
-<div class="row">
-  <div class="col-auto">
-    <h2>Welcome, {{name}}!</h2>
+<h4>Welcome, {{name}}!</h4>
+<div id="current-posts">
+  {{#if blogposts.length}}
+      <table class="responsive-table">
+        <tbody>
+          <th class="tbl-content-left">Post title</th>
+          <th class="tbl-content-right">Posted on</th>
+          {{#each blogposts as |blogpost|}}
+              <tr>
+                  <td class="tbl-content-left"><a
+                      href="/blogpost-edit/{{blogpost.id}}"
+                    >{{blogpost.title}}</a></td>
+                  <td class="tbl-content-right"><p>{{format_date
+                        blogpost.posted_date
+                      }}</p></td>
+              </tr>
+          {{/each}}
+        </tbody>
+      </table>
+  {{/if}}
+  <div class="center-align">
+    <button
+      id="new-post"
+      class="btn btn-small btn-long"
+      type="submit"
+      onclick="showCreatePost()"
+    >
+      + New Post
+    </button>
   </div>
 </div>
-
-<div class="row mt-4">
-
-  {{#if blogposts.length}}
-  <div class="col-md-6 blogpost-list">
-    <h3>Current Blogposts:</h3>
-
-    {{#each blogposts as |blogpost|}}
-    <div class="row mb-2">
-      <div class="col-md-8">
-        <h4><a href="/blogpost/{{blogpost.id}}">{{blogpost.title}}</a></h4>
-      </div>
-      <div class="col-md-4">
-        <button class="btn btn-sm btn-danger" data-id="{{blogpost.id}}">DELETE</button>
-      </div>
-    </div>
-    {{/each}}
-  </div>
-  {{/if}}
-
-    <div class="col-md-6">
+<div class="row" style="display:none" id="new-post-form">
+  <div class="col s12">
     <h3>Create a New Blogpost:</h3>
 
-    <form class="form new-blogpost-form">
-      <div class="form-group">
+    <form class="new-blogpost-form">
+      <div>
         <label for="blogpost-title">blogpost title:</label>
-        <input class="form-input" type="text" id="blogpost-title" name="blogpost-title" />
+        <input type="text" id="blogpost-title" name="blogpost-title" />
       </div>
-      <div class="form-group">
+      <div>
         <label for="blogpost-desc">content:</label>
-        <textarea class="form-input" id="blogpost-desc" name="blogpost-desc"></textarea>
+        <textarea
+          id="blogpost-desc"
+          name="blogpost-desc"
+          style="height: 300px"
+        ></textarea>
       </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary">Create</button>
+      <div>
+        <button type="submit" class="btn btn-small btn-long">Create</button>
       </div>
     </form>
   </div>

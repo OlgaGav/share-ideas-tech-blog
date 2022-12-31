@@ -1,11 +1,18 @@
 <div class="text-center">
-  <h2>{{title}}</h2>
+  <h4>{{title}}</h4>
   <p>{{post}}</p>
   <p>Created by {{user.name}} on {{format_date posted_date}}</p>
   <p>
     Comments:
   </p>
   <p>
-    <button class="btn btn-primary">Comment</button>
+    <div class="form-floating">
+      <textarea
+        class="form-control"
+        placeholder="Leave your comment here"
+        id="floatingComment"
+        style="height: 100px"></textarea>
+    </div>
+    <button class="btn btn-small" id="submitNewComment">Comment</button>
   </p>
 </div>

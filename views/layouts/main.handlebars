@@ -1,45 +1,49 @@
-<!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Share Ideas Tech Blog</title>
-  <link rel="stylesheet" href="/css/materialize.css">
-  {{!-- <link rel="stylesheet" href="/css/jass.css"> --}}
-  <link rel="stylesheet" href="/css/style.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Share Ideas Tech Blog</title>
+    <link rel="stylesheet" href="/css/materialize.css" />
+    {{! <link rel="stylesheet" href="/css/jass.css"> }}
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
 
-<body>
-  <div class="flex-column justify-space-around">
-    <header class="display-flex justify-space-between align-center p-2">
-      <h1>
-        <span role="img" aria-label="money">&#128218;</span>
-        <a href="/">Share Ideas - Tech Blog</a>
-      </h1>
-      <nav>
-        <!-- Conditionally render login or logout links -->
-        {{#if logged_in}}
-        <a href="/dashboard">dashboard</a> |
-        <button class="no-button" id="logout">logout</button>
-        {{else}}
-        <a href="/login">login</a>
-        {{/if}}
-      </nav>
-    </header>
-    <main class="container container-fluid mt-5">
-      <!-- Render the sub layout -->
-      {{{ body }}}
-    </main>
-    <footer>
-      
-    </footer>
-  </div>
+  <body>
+    <div>
+      <header>
 
-  <!-- Render script for logged in users only -->
-  {{#if logged_in}}
-  <script src="/js/logout.js"></script>
-  {{/if}}
-</body>
+        <nav style="background-color: #5e89a9;">
+          <div class="nav-wrapper">
+            <a href="/" class="brand-logo">&#128218; Share Ideas - Tech Blog</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <li><a href="/">home</a></li>
+
+              <!-- Conditionally render login or logout links -->
+              {{#if logged_in}}
+                <li><a href="/dashboard">dashboard</a></li>
+                <li><a id="logout">logout</a></li>
+              {{else}}
+                <li><a href="/login">login</a></li>
+              {{/if}}
+
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <main class="container">
+        <!-- Render the sub layout -->
+        {{{body}}}
+      </main>
+      <footer>
+
+      </footer>
+    </div>
+
+    <!-- Render script for logged in users only -->
+    {{#if logged_in}}
+      <script src="/js/logout.js"></script>
+    {{/if}}
+  </body>
 
 </html>
