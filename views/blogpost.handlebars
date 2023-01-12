@@ -5,7 +5,8 @@
   <p>
     Comments:
   </p>
-  <p>
+  {{#if logged_in}}
+      <p>
     <div class="form-floating">
       <textarea
         class="form-control"
@@ -13,6 +14,10 @@
         id="floatingComment"
         style="height: 100px"></textarea>
     </div>
-    <button class="btn btn-small" id="submitNewComment">Comment</button>
+    <button class="btn btn-small" id="submitNewComment" onclick="submitComment()">Comment</button>
   </p>
+        {{else}}
+      <li><a href="/login">login</a></li>
+    {{/if}}
+  
 </div>

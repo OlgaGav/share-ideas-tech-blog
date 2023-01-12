@@ -21,15 +21,19 @@ router.post('/', withAuth, async (req, res) => {
 });
 
 router.put('/:id', withAuth, async (req, res) => {
+  let postData = {
+    title: req.body.title,
+    post: req.body.post,
+  }
   try {
-    const blogpostData = await Blogpost.update({
+    const blogpostData = await Blogpost.update(postData, {
       where: {
-        ...req.body,
         id: req.params.id,
         user_id: req.session.user_id,
       },
     });
 
+    console.log(blogpostData);
     if (!blogpostData) {
       res.status(404).json({ message: 'No blogpost found with this id!' });
       return;
@@ -37,6 +41,7 @@ router.put('/:id', withAuth, async (req, res) => {
 
     res.status(200).json(blogpostData);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
