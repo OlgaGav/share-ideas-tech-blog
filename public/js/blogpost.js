@@ -11,7 +11,8 @@ const delButtonHandler = async (id) => {
 };
 
 const updateButtonHandler = async (id) => {
-
+  const title = document.getElementById("blogpost-title").value;
+  const post = document.getElementById("blogpost-desc").value;
     const response = await fetch(`/api/blogposts/${id}`, {
       method: 'PUT',
       body: JSON.stringify({ title, post }),
@@ -23,7 +24,12 @@ const updateButtonHandler = async (id) => {
     if (response.ok) {
       document.location.replace('/dashboard');
     } else {
-      alert('Failed to update blogpost');
+      alert(`Failed to update blogpost, status ${response.status}`);
     }
 
 };
+
+
+function submitComment() {
+  
+}

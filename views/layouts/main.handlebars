@@ -4,41 +4,60 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Share Ideas Tech Blog</title>
-    <link rel="stylesheet" href="/css/materialize.css" />
-    {{! <link rel="stylesheet" href="/css/jass.css"> }}
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    {{!-- <link rel="stylesheet" href="/css/materialize.css" /> --}}
     <link rel="stylesheet" href="/css/style.css" />
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
+            
   </head>
 
   <body>
     <div>
       <header>
-
         <nav style="background-color: #5e89a9;">
           <div class="nav-wrapper">
-            <a href="/" class="brand-logo">&#128218; Share Ideas - Tech Blog</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-              <li><a href="/">home</a></li>
+             <div class="container">
+              <a href="/" class="brand-logo"><i class="material-icons">&#128218;</i> Share Ideas - Tech Blog</a>
+              <a href="#" class="sidenav-trigger" data-target="slide-out" style="font-size:2rem">☰</i></a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/">home</a></li>
 
-              <!-- Conditionally render login or logout links -->
-              {{#if logged_in}}
-                <li><a href="/dashboard">dashboard</a></li>
-                <li><a id="logout">logout</a></li>
-              {{else}}
-                <li><a href="/login">login</a></li>
-              {{/if}}
+                <!-- Conditionally render login or logout links -->
+                {{#if logged_in}}
+                  <li><a class="waves-effect" href="/dashboard">dashboard</a></li>
+                  <li><a class="waves-effect" id="logout">logout</a></li>
+                {{else}}
+                  <li><a href="/login">login</a></li>
+                {{/if}}
 
-            </ul>
+              </ul>
+            </div>
           </div>
         </nav>
       </header>
+
+  <ul id="slide-out" class="sidenav">
+    <li><a href="/">&#128218; Tech Blog</a></li>
+    <li><div class="divider"></div></li>
+    <li><a href="/">home</a></li>
+    {{#if logged_in}}
+      <li><a class="waves-effect" href="/dashboard">dashboard</a></li>
+      <li><a class="waves-effect" id="logout_burger">logout</a></li>
+        {{else}}
+      <li><a href="/login">login</a></li>
+    {{/if}}
+  </ul>
+
       <main class="container">
         <!-- Render the sub layout -->
         {{{body}}}
       </main>
-      <footer>
-
-      </footer>
-    </div>
+      <footer></footer>
 
     <!-- Render script for logged in users only -->
     {{#if logged_in}}
@@ -47,3 +66,16 @@
   </body>
 
 </html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const elems = document.querySelectorAll(".sidenav");
+    const options = {
+      edge: "left",
+    };
+    var instances = M.Sidenav.init(elems, options);
+
+    // Enable this to make the side-nav open automatically when page is loaded.
+    // instances[0].open();
+  });
+</script>
