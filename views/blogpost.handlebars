@@ -1,24 +1,27 @@
 <div class="text-center">
   <h4>{{title}}</h4>
   <p>{{post}}</p>
-  <p>Created by {{user.name}} on {{format_date posted_date}}</p>
+  <p class="separator">Posted by {{user.name}}, {{format_date posted_date}}</p>
 
-  {{!-- this section is displayed if at least one comment added to the post --}}
+  {{! this section is displayed if at least one comment added to the post }}
   {{#if comments}}
-    <p>
+    <h5>
       Comments:
-    </p>
+    </h5>
     <!-- Loop over each object in the comments array -->
     {{#each comments as |comment|}}
-    <div class="row">
-      <div class="col s12 comment">
-        <p>{{comment.content}}</p>
-        <p style="font-size: 0.85rem">@ {{comment.user.name}} at {{format_date comment.posted_date}}</p>
+      <div class="row">
+        <div class="col s12 comment">
+          <p>{{comment.content}}</p>
+          <p style="font-size: 0.85rem">-
+            {{comment.user.name}},
+            {{format_date comment.posted_date}}</p>
+        </div>
       </div>
-    </div>
-    {{/each}}  
+    {{/each}}
   {{/if}}
 
+  {{!-- Comment form will be displayed for logged in users only --}}
   {{#if logged_in}}
     <p>
       <div class="form-floating">
@@ -29,40 +32,15 @@
           style="height: 100px"
         ></textarea>
       </div>
-      <button class="btn btn-small" id="submitNewComment" onclick="submitComment({{id}})">Comment</button>
+      <button
+        class="btn btn-small"
+        id="submitNewComment"
+        onclick="submitComment({{id}})"
+      >Comment</button>
     </p>
   {{else}}
-    <a href="/login">If you want to add comment, please login</a>
+    <a class="notification" href="/login">If you want to add comment, please
+      login</a>
   {{/if}}
 </div>
-<script>
-  const submitComment = async function(post_id) {
-  const content = document.getElementById("comment-content").value;
-  try {
-    const response = await fetch(`/api/blogposts/${post_id}/comment`, {
-      method: 'POST',
-      body: JSON.stringify({content}),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  if (response.ok) {
-    document.getElementById("comment-content").textContent = "";
-    document.location.reload();
-  } else {
-    console.log(`Failed to sunmit comment, status ${response.status}`);
-  }
-  } catch (err) {
-    console.log(err);
-  }
-
-}
-</script>
-<style>
-  #submitNewComment {
-    margin-top: 1rem;
-  }
-  #comment-content{
-    border-color: lightgrey;
-  }
-</style>
+<script src="/js/comment.js"></script>

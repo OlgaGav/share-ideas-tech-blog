@@ -39,6 +39,9 @@ router.get('/blogpost/:id', async (req, res) => {
             ],
           }),
           Comment.findAll({
+            where: {
+              blogpost_id: req.params.id,
+            },
             include: [
               {
                 model: User,
@@ -55,7 +58,7 @@ router.get('/blogpost/:id', async (req, res) => {
 
     res.render('blogpost', {
       ...plainBlogpost,
-      logged_in: req.session,
+      logged_in: req.session.logged_in,
       comments: plainComments,
     });
   } catch (err) {

@@ -33,6 +33,27 @@ header, .blogpost:not(:last-child) {
   background-color: lightgrey;
 }
 
+.separator {
+  border-bottom: 1px solid #ccc;
+}
+
+.login-alert,
+.signup-alert {
+  color: red;
+}
+
+.notification {
+  padding-bottom: 2rem;
+}
+
+#submitNewComment {
+  margin-top: 1rem;
+}
+
+#comment-content{
+  border-color: lightgrey;
+}
+
 #new-post {
   position: fixed;
   bottom: 2rem;
