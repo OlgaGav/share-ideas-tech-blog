@@ -23,3 +23,35 @@ header, .blogpost:not(:last-child) {
   text-align: right;
 }
 
+.new-post-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comment {
+  background-color: lightgrey;
+}
+
+#new-post {
+  position: fixed;
+  bottom: 2rem;
+  border-radius: 12px;
+}
+
+@media only screen and (max-width: 995) {
+  #logo {
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  #logo {
+    font-size: 1.5rem;
+  }
+}
+@media only screen and (max-width: 520px) {
+  header {
+    height: 5rem;
+  }
+}

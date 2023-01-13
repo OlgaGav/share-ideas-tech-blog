@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Blogpost } = require('../../models');
+const { Blogpost, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.post('/', withAuth, async (req, res) => {
@@ -65,5 +65,24 @@ router.delete('/:id', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+router.post('/:id/comment', async(req, res) => {
+  let current = new Date();
+  let cDate = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
+  let cTime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
+  let dateTime = cDate + ' ' + cTime;
+
+  try {
+    const newComment = await Comment.create({
+      content: req.body.content,
+      user_id: req.session.user_id,
+      blogpost_id: req.params.id,
+      posted_date: dateTime
+    })
+    res.status(200).json(newComment);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+})
 
 module.exports = router;

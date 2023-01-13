@@ -28,8 +28,3 @@ const updateButtonHandler = async (id) => {
     }
 
 };
-
-
-function submitComment() {
-  
-}

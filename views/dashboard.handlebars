@@ -2,9 +2,11 @@
 <div id="current-posts">
   {{#if blogposts.length}}
       <table class="responsive-table">
-        <tbody>
+        <thead>
           <th class="tbl-content-left">Post title</th>
           <th class="tbl-content-right">Posted on</th>
+        </thead>
+        <tbody>
           {{#each blogposts as |blogpost|}}
               <tr>
                   <td class="tbl-content-left"><a
@@ -18,10 +20,10 @@
         </tbody>
       </table>
   {{/if}}
-  <div class="center-align">
+  <div class="new-post-btn-container">
     <button
       id="new-post"
-      class="btn btn-small btn-long"
+      class="btn btn-large waves-effect waves-light"
       type="submit"
       onclick="showCreatePost()"
     >
