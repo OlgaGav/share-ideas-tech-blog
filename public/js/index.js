@@ -1,14 +1,7 @@
-// document.addEventListener('DOMContentLoaded', function() {
- 
-//   let mobileNav = document.getElementById('slide-out');
-//   M.Sidenav.init(mobileNav, {});
- 
-// });
-
-	
-document.addEventListener('DOMContentLoaded', function() {
- 
-  var myNav = document.querySelectorAll('.sidenav');
-  M.Sidenav.init(myNav, {});
- 
+document.addEventListener("DOMContentLoaded", function () {
+  const elems = document.querySelectorAll(".sidenav");
+  const options = {
+    edge: "left",
+  };
+  var instances = M.Sidenav.init(elems, options);
 });

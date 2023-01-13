@@ -1,3 +1,6 @@
+const loginAlertEl = document.querySelector('.login-alert');
+const signupAlertEl = document.querySelector('.signup-alert');
+
 const loginFormHandler = async (event) => {
   event.preventDefault();
 
@@ -14,9 +17,13 @@ const loginFormHandler = async (event) => {
     });
     if (response.ok) {
       // If successful, redirect the browser to the home page
-      //awaiting loggedIn function saved in db. TODO: investigate other options
+      //awaiting loggedIn function saved in db, as observed delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
       document.location.replace('/dashboard');
+    } else if (response.status===403) {
+      loginAlertEl.textContent = "Incorrect email or password";
+    } else if (response.status===404) {
+      loginAlertEl.textContent = "Login failed.";
     } else {
       alert(response.statusText);
     }
@@ -40,18 +47,25 @@ const signupFormHandler = async (event) => {
     if (response.ok) {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       document.location.replace('/dashboard');
-    } else {
+    } else if (response.status === 400 ) {
+      signupAlertEl.textContent = "Signup failed. Make sure your user is unique";
+    }
+    else {
       alert(response.statusText);
     }
   }
 };
 
 function showSignupForm() {
+  loginAlertEl.textContent="";
+  signupAlertEl.textContent="";
   document.getElementById("login-section").style.display = "none";
   document.getElementById("signup-section").style.display = "block";
 }  
 
 function showLoginForm() {
+  loginAlertEl.textContent="";
+  signupAlertEl.textContent="";
   document.getElementById("login-section").style.display = "block";
   document.getElementById("signup-section").style.display = "none";
 }
