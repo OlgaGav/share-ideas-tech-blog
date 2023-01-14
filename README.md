@@ -21,7 +21,7 @@
     
   ## Installation
   
-  Application deployed to heroku: 
+  Application deployed to heroku: https://share-ideas-tech-blog.herokuapp.com/
 
   If you want to run locally:
 
@@ -33,7 +33,8 @@
   
   ## Usage
   
-  Onpen application. 
+  Open application: https://share-ideas-tech-blog.herokuapp.com/
+  
   You can see posts without signup/login. However if you want to add comment - you need to signup to this application.
 
   Signup/Login to the application. 
