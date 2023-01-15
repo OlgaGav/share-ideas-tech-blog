@@ -1,6 +1,6 @@
 <div class="text-center">
   <h4>{{title}}</h4>
-  <p>{{post}}</p>
+  <p class="blogpost-content">{{post}}</p>
   <p class="separator">Posted by {{user.name}}, {{format_date posted_date}}</p>
 
   {{! this section is displayed if at least one comment added to the post }}
@@ -12,7 +12,7 @@
     {{#each comments as |comment|}}
       <div class="row">
         <div class="col s12 comment">
-          <p>{{comment.content}}</p>
+          <p class="comment-content">{{comment.content}}</p>
           <p style="font-size: 0.85rem">-
             {{comment.user.name}},
             {{format_date comment.posted_date}}</p>
