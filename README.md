@@ -8,6 +8,19 @@
   This is multi-user application. It's allow to post and comment blogposts from other users.
 
   ![this image display the screenshot of the 'Share Ideas - The Tech Blog' application](./public/images/appl_home_page.png)
+  
+  Tech. Stack:
+  - HTML
+  - CSS, Materialize
+  - JavaScript
+  - MySQL
+  - Express
+  - express-handlebars 
+  - express-session
+  - bcrypt
+  - Sequelize
+  - node
+  - heroku
 
   ## Table of Contents
  
